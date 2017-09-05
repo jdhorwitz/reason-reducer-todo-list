@@ -1,0 +1,20 @@
+{
+  "name": "joshuahorwitz",
+  "scripts": {
+    "start": "bsb -make-world -w",
+    "build": "webpack -w",
+    "clean": "bsb -clean-world"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "reason-react": ">=0.2.1"
+  },
+  "devDependencies": {
+    "bs-platform": "^1.9.1",
+    "webpack": "^1.14.0"
+  }
+}
