@@ -20,32 +20,29 @@ module TodoItem = {
 
 let valueFromEvent evt :string => (evt |> ReactEventRe.Form.target |> ReactDOMRe.domElementToObj)##value;
 
-module Input = {
-  type state = string;
-  type actions =
-    | AddText string;
-  let component = ReasonReact.reducerComponent "Input";
-  let make _ => {
-    ...component,
-    initialState: fun () => "",
-    reducer: fun action _ =>
-      switch action {
-      | AddText text => ReasonReact.Update text
-      },
-    render: fun {state: text, reduce} =>
-      <input
-        value=text
-        _type="text"
-        placeholder="Write something to do"
-        onChange=(reduce (fun evt => AddText (valueFromEvent evt)))
-      />
-  };
-};
-
 type state = {items: list item};
 
-let component = ReasonReact.reducerComponent "TodoApp";
-
+/* module Input = {
+     type state = string;
+     type actions =
+       | AddText string;
+     let component = ReasonReact.reducerComponent "Input";
+     let make _ => {
+       ...component,
+       initialState: fun () => "",
+       reducer: fun action _ =>
+         switch action {
+         | AddText text => ReasonReact.Update text
+         },
+       render: fun {state: text, reduce} =>
+         <input
+           value=text
+           _type="text"
+           placeholder="Write something to do"
+           onChange=(reduce (fun evt => AddText (valueFromEvent evt)))
+         />
+     };
+   }; */
 let lastId = ref 0;
 
 let newItem text => {
@@ -60,6 +57,8 @@ type actions =
 let toggleItem items id =>
   List.map (fun item => item.id === id ? {...item, completed: not item.completed} : item) items;
 
+let component = ReasonReact.reducerComponent "TodoApp";
+
 let make _children => {
   ...component,
   initialState: fun () => {items: [{id: 0, title: "Write some things to do", completed: false}]},
@@ -72,7 +71,7 @@ let make _children => {
     let numItems = List.length state.items;
     let plural = numItems == 1 ? "Item" : "Items";
     <div className="app">
-      <div className="title"> (se "What to do") <Input /> </div>
+      <div className="title"> (se "What to do") </div>
       <div className="items">
         (
           ReasonReact.arrayToElement (
